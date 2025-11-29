@@ -1,0 +1,48 @@
+# 数据源配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/three?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+  # Redis配置
+  data:
+    redis:
+      cluster:
+        nodes:
+          - 192.168.145.128:7001
+          - 192.168.145.128:7002
+          - 192.168.145.128:7003
+          - 192.168.145.128:7004
+          - 192.168.145.128:7005
+          - 192.168.145.128:7006
+        timeout: 5000ms
+        max-redirects: 3
+      # 确保注释或删除password配置（关键！）
+      # password: xxxxxx  # 若有此行，删除或注释
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 2
+          max-wait: 5000ms
+
+    logging:
+      level:
+        root: INFO  # 根日志级别
+        com.project.three: DEBUG  # 项目包下日志级别（可根据需要调整为INFO/DEBUG）
+        org.mybatis: DEBUG  # MyBatis SQL日志（可选，调试时开启）
+        org.springframework.jdbc: DEBUG  # JDBC日志（可选）
+      pattern:
+        console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"  # 控制台日志格式
+#    # SQL初始化
+#    sql:
+#      init:
+#        mode: always
+#        schema-locations: classpath:db/data.
+
+# MyBatis配置（若使用MyBatis）
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  # 指向XML文件目录
+  type-aliases-package: com.project.three.entity  # 实体类别名包（可选）

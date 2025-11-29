@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须与Mapper接口全类名一致 -->
+<mapper namespace="com.project.three.mapper.UserMapper">
+
+    <!-- 方法ID必须与接口方法名一致（selectById） -->
+    <!-- resultType使用全限定类名，或配置别名后用简写 -->
+    <select id="selectById" resultType="com.project.three.entity.User">
+        <!-- 显式指定字段，避免*带来的映射问题 -->
+        SELECT id, username, email, phone, create_time
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="com.project.three.entity.User">
+        UPDATE user
+        SET username = #{username},
+            email = #{email},
+            phone = #{phone}
+        WHERE id = #{id}
+    </update>
+</mapper>
